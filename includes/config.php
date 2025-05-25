@@ -1,15 +1,13 @@
 <?php
-define('DB_HOST', 'db');
-define('DB_USER', 'judging_user');
-define('DB_PASS', 'SecurePassword123!');
+$db_host = getenv('DB_HOST') ?: '127.0.0.1';
+$conn = new mysqli(
+    $db_host,
+    getenv('DB_USER') ?: 'judging_user',
+    getenv('DB_PASS') ?: 'SecurePassword123!',
+    getenv('DB_NAME') ?: 'judging_system',
+    getenv('DB_PORT') ?: 3306
+);
 
-define('DB_NAME', 'judging_system');
-
-// Create connection
-$conn = new mysqli('db', 'judging_user',  'SecurePassword123!', 'judging_system', 3306);
-
-
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }

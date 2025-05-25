@@ -6,9 +6,15 @@ services:
       - "8000:80"
     environment:
       - DB_HOST=db
+      - DB_USER=judging_user
+      - DB_PASS=SecurePassword123!
       - DB_NAME=judging_system
+      - DB_PORT=3306
     depends_on:
       - db
+    networks:
+      - app-network
+
   db:
     image: mysql:5.7
     environment:
@@ -16,6 +22,14 @@ services:
       MYSQL_DATABASE: judging_system
       MYSQL_USER: judging_user
       MYSQL_PASSWORD: SecurePassword123!
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
 
+networks:
+  app-network:
+    driver: bridge
 
-      
+volumes:
+  db_data:
