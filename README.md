@@ -19,7 +19,7 @@ A complete judging system built using **PHP**, **MySQL**, and **vanilla JavaScri
 ---
 
 ## Live Demo
-[Access the live application here](https://judging-system-2.onrender.com)
+[Access the live application here](https://judging-system-qjjr.onrender.com)
 
 ### Installation
 
