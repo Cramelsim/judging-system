@@ -1,3 +1,4 @@
+
 # Judging System - LAMP Stack Implementation
 
 ## Overview
@@ -18,81 +19,31 @@ A complete judging system built using **PHP**, **MySQL**, and **vanilla JavaScri
 
 ---
 
-## Live Demo
-[Access the live application here](https://judging-system-qjjr.onrender.com)
-
 ### Installation
 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/yourusername/judging-system.git
    cd judging-system
-   # 2. Copy to web root (better than direct clone to /home/melody/Desktop/judging-systeml)
-   sudo rsync -avz ./ //home/melody/Desktop/judging-system/--exclude='.git'
-
-**Set secure permissions**
-sudo chown -R www-data:www-data /home/melody/Desktop/judging-system
-sudo find /home/melody/Desktop/judging-system -type d -exec chmod 755 {} \;
-sudo find /home/melody/Desktop/judging-system -type f -exec chmod 644 {} \;
-
-**Special permissions for writeable folders**
-sudo chmod -R 775 /home/melody/Desktop/judging-system/storage  # If you have logs/cache
    ```
+
 2. **Create the database**
    ```bash
-   # Create database and user (MySQL example)
-    mysql -u root -p -e "CREATE DATABASE judging_system;"
-    mysql -u root -p -e "CREATE USER 'judge_app'@'localhost' IDENTIFIED BY 'securepassword';"
-    mysql -u root -p -e "GRANT ALL PRIVILEGES ON judging_system.* TO 'judge_app'@'localhost';" 
-
-   # Import schema
-    mysql -u root -p judging_system < sql/schema.sql
-
-    # Optional: Load sample data
-   mysql -u root -p judging_system < sql/sample_data.sql
-
+   mysql -u root -p < sql/schema.sql
    ```
 
 3. **Configure database credentials**
    ```bash
    cp includes/config.example.php includes/config.php
-   Edit includes/config.php with your database credentials:
-   php
-   <?php
-   define('DB_HOST', 'localhost');
-   define('DB_NAME', 'judging_system');
-   define('DB_USER', 'judging_user');
-   define('DB_PASS', 'SecurePassword123!');
-   
+   nano includes/config.php
    ```
 
 4. **Start development server (PHP built-in)**
    ```bash
    php -S localhost:8000 router.php
    ```
-   **Start Apache**
-   ```bash
-   sudo systemctl restart apache2
-   ```
 
 ---
-## 6️⃣ Troubleshooting Common Issues
-Database Connection Errors:
-
-bash
-# Test your DB connection
-mysql -u judge_app -psecurepassword judging_system -e "SHOW TABLES;"
-File Permissions:
-
-bash
-chmod -R 755 storage/ logs/
-chown -R www-data:www-data .  # For Apache
-Missing Dependencies:
-
-bash
-# On Ubuntu/Debian
-sudo apt install php-mysql php-curl php-mbstring
-
 
 ## 🗄️ Database Schema
 
@@ -161,13 +112,27 @@ If expanded further, features could include:
 
 ---
 
+## 📦 Deployment
 
+For live access (optional):
+
+- **Free hosting**: [000webhost](https://www.000webhost.com/), [InfinityFree](https://infinityfree.net/)
+- **Paid VPS**: [DigitalOcean](https://digitalocean.com), [Linode](https://linode.com) ($5/month)
+- **Local**: Share demo video
+
+### To deploy:
+- Upload all files to host
+- Import `sql/schema.sql` into your database
+- Edit `includes/config.php` with production credentials
+- Set permissions: `755` for directories, `644` for files
+
+---
 
 ## 🔗 Access Points
 
-- **Admin Panel**: `/admin/` → Manage judges
-- **Judge Portal**: `/judges/` → Submit scores
-- **Public Scoreboard**: `/scoreboard/` → View results
+- **Admin Panel**: `/admin` → Manage judges
+- **Judge Portal**: `/judges` → Submit scores
+- **Public Scoreboard**: `/scoreboard` → View results
 
 ---
 

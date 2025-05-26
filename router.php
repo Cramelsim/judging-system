@@ -12,6 +12,7 @@ define('BASE_PATH', __DIR__);
 define('BASE_DIR', '');  // Empty for root-level deployment
 
 // Load configuration
+
 require BASE_PATH . '/includes/config.php';
 
 // Get the clean request path
@@ -51,7 +52,7 @@ switch ($request) {
     case '/submit-score':
         error_log("Processing score submission");
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            require BASE_PATH . '/judges/score.php';
+            require BASE_PATH . '/submit-score/score.php';
         } else {
             http_response_code(405);
             error_log("405: Invalid method for submit-score");
@@ -73,8 +74,7 @@ switch ($request) {
             error_log("405: Invalid method for add-judge");
             die('Method Not Allowed');
         }
-        break;
-        
+        break; 
     default:
         error_log("404: Not found - $request");
         http_response_code(404);

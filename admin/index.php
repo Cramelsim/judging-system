@@ -1,4 +1,5 @@
 <?php require_once __DIR__ . '/../includes/functions.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -376,7 +377,8 @@
         
         <div class="card">
             <h2><i class="fas fa-plus-circle"></i> Add New Judge</h2>
-            <form action="/judging-system/add-judge" method="post">
+            <form action="/add-judge" method="post">
+            <!-- <form method="post">   -->
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" required placeholder="Enter username">

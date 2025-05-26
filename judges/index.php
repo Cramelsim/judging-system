@@ -553,7 +553,7 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
                         </div>
                         
                         <div class="scoring-section">
-                            <form action="/judging-system/submit-score" method="post">
+                            <form action="/submit-score" method="post">
                                 <input type="hidden" name="judge_id" value="<?= $judgeId ?>">
                                 <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
                                 

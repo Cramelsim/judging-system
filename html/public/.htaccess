@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    Options -Indexes +FollowSymLinks
+    RewriteEngine On
+    RewriteBase /judging-system/
+    
+    # Allow POST requests
+    RewriteCond %{REQUEST_METHOD} POST [NC]
+    RewriteRule ^ - [L]
+    
+    # Redirect all other requests to index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>

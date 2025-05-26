@@ -1,35 +1,33 @@
-version: '3'
+version: '3.8'
+
 services:
   app:
-    build: .
+    build:
+      context: .
+      args:
+        APACHE_UID: 1000  # Match your host user ID (run `id -u` to check)
+        APACHE_GID: 1000  # Match your host group ID (run `id -g` to check)
     ports:
       - "8000:80"
-    environment:
-      - DB_HOST=db
-      - DB_USER=judging_user
-      - DB_PASS=SecurePassword123!
-      - DB_NAME=judging_system
-      - DB_PORT=3306
-    depends_on:
-      - db
-    networks:
-      - app-network
-
-  db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: judging_system
-      MYSQL_USER: judging_user
-      MYSQL_PASSWORD: SecurePassword123!
     volumes:
-      - db_data:/var/lib/mysql
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
+      - /home/melody/Desktop/judging-system:/var/www/html
+    environment:
+      - APACHE_UID=1000
+      - APACHE_GID=1000
+    restart: unless-stopped
+  
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: judging_system
+      MYSQL_USER: melody
+      MYSQL_PASSWORD: melody123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
 
 volumes:
-  db_data:
+  mysql_data:
