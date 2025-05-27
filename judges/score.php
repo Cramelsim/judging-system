@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     error_log("Error: Invalid request method");
     http_response_code(405);
     $_SESSION['error_message'] = "405 - Method Not Allowed";
-    header('Location: /judging-system/judges');
+    header('Location: /judges');
     exit;
 }
 
@@ -32,7 +32,7 @@ foreach ($requiredFields as $field) {
         $error = "Missing required field: $field";
         error_log("Validation Error: $error");
         $_SESSION['error_message'] = $error;
-        header('Location: /judging-system/judges');
+        header('Location: /judges');
         exit;
     }
 }
@@ -49,7 +49,7 @@ if ($judgeId <= 0 || $userId <= 0) {
     $error = "Invalid judge or participant ID";
     error_log("Validation Error: $error");
     $_SESSION['error_message'] = $error;
-    header('Location: /judging-system/judges');
+    header('Location: /judges');
     exit;
 }
 
@@ -57,7 +57,7 @@ if ($score < 1 || $score > 100) {
     $error = "Score must be between 1-100";
     error_log("Validation Error: $error");
     $_SESSION['error_message'] = $error;
-    header('Location: /judging-system/judges');
+    header('Location: /judges');
     exit;
 }
 
@@ -66,7 +66,7 @@ try {
     if (addScore($judgeId, $userId, $score)) {
         error_log("Success: Score submitted - Judge: $judgeId, User: $userId, Score: $score");
         $_SESSION['success_message'] = "Score submitted successfully!";
-        header('Location: /judging-system/judges');
+        header('Location:/judges');
         exit;
     } else {
         // Check if this is a duplicate submission
@@ -77,12 +77,12 @@ try {
             error_log("Error: Unknown failure in addScore()");
             $_SESSION['error_message'] = "Failed to record score. Please try again.";
         }
-        header('Location: /judging-system/judges');
+        header('Location: /judges');
         exit;
     }
 } catch (Exception $e) {
     error_log("Exception: " . $e->getMessage());
     $_SESSION['error_message'] = "An error occurred: " . $e->getMessage();
-    header('Location: /judging-system/judges');
+    header('Location: /judges');
     exit;
 }

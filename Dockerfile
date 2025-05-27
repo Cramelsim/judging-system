@@ -21,17 +21,15 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli zip gd mbstring
 # Enable Apache modules
 RUN a2enmod rewrite headers
 
-# Configure Apache
+# Configure Apache - Modified to use /var/www/html instead of /public
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
-    sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf && \
+    sed -ri -e 's!/var/www/html!/var/www/html!g' /etc/apache2/sites-available/*.conf && \
     sed -ri -e 's!/var/www/!/var/www/html!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
-    echo "<Directory /var/www/html>\n\tAllowOverride All\n\tRequire all granted\n</Directory>" >> /etc/apache2/apache2.conf
+    echo "<Directory /var/www/html>\n\tAllowOverride All\n\tRequire all granted\n</Directory>" >> /etc/apache2/apache2.conf && \
+    sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/Options Indexes FollowSymLinks/Options FollowSymLinks/' /etc/apache2/apache2.conf
 
 # Set working directory
 WORKDIR /var/www/html
-
-# Copy local files (this will be done in docker-compose instead)
-# COPY . /var/www/html
 
 # Set proper permissions
 RUN chown -R www-data:www-data /var/www/html && \

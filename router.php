@@ -9,7 +9,7 @@ ini_set('error_log', __DIR__ . '/logs/php_errors.log');
 
 // Define base paths
 define('BASE_PATH', __DIR__);
-define('BASE_DIR', '');  // Empty for root-level deployment
+define('BASE_DIR', '/judging-system');  // Empty for root-level deployment
 
 // Load configuration
 
@@ -52,7 +52,7 @@ switch ($request) {
     case '/submit-score':
         error_log("Processing score submission");
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            require BASE_PATH . '/submit-score/score.php';
+            require BASE_PATH . '/judges/score.php';
         } else {
             http_response_code(405);
             error_log("405: Invalid method for submit-score");
